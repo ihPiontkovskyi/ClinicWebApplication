@@ -20,6 +20,6 @@ public class SaveOrUpdateDiagnosisServlet extends AbstractServlet {
           currDiagnosis.setDiagnosisName(getStringParam(request,"name"));
         currDiagnosis.setDiagnosisClass(getStringParam(request,"class"));
         getDiagnosisService().saveOrUpdate(currDiagnosis);
-        forward("diagnosis.jsp", request, response);
+        redirectToAction("diagnosis.jsp", request, response);
     }
 }

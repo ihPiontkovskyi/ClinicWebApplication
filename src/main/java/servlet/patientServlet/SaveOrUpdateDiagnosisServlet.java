@@ -22,5 +22,6 @@ public class SaveOrUpdateDiagnosisServlet extends AbstractServlet {
         patient.setPatientLastName(getStringParam(request,"lastName"));
         patient.setPatientDateOfBirth(Date.valueOf(getStringParam(request,"date")));
         getPatientService().saveOrUpdate(patient);
+        forward("patient.jsp",request,response);
     }
 }

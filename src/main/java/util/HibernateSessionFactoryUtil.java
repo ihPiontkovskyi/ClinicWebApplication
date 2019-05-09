@@ -12,7 +12,7 @@ public class HibernateSessionFactoryUtil {
 
     private static SessionFactory sessionFactory = null;
 
-    private static void setSession() {
+    public static void setSession() {
         try {
             Configuration configuration = new Configuration().configure();
             configuration.addAnnotatedClass(Diagnosis.class);
@@ -20,7 +20,6 @@ public class HibernateSessionFactoryUtil {
             configuration.addAnnotatedClass(Patient.class);
             configuration.addAnnotatedClass(Specialization.class);
             configuration.addAnnotatedClass(Staff.class);
-            configuration.addAnnotatedClass(User.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             sessionFactory = configuration.buildSessionFactory(builder.build());
         } catch (Exception e) {
@@ -29,13 +28,11 @@ public class HibernateSessionFactoryUtil {
     }
 
     public static void doInHibernateSession(Consumer<Session> sessionConsumer) {
-        if (sessionFactory == null) {
-            setSession();
-        }
         try (Session session = sessionFactory.openSession()) {
             sessionConsumer.accept(session);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
 }
