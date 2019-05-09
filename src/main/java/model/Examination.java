@@ -4,14 +4,14 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
 @Table(name = "examination")
 public class Examination implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int examinationId;
 
     private int termOfTreatment;
@@ -29,8 +29,4 @@ public class Examination implements Serializable {
     @ManyToOne
     @JoinColumn(name = "diagnosis")
     private Diagnosis diagnosis;
-    @Override
-    public String toString() {
-        return patient.toString() + " " + diagnosis.toString() + " " + examinationDate.toString();
-    }
 }

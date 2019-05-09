@@ -1,4 +1,4 @@
-$(document).on('click', 'save.class', function(){
+$('.save').click( function(){
     let btn = event.target;
     let obj = btn.closest('tr');
     let diagnosisId =  $(obj).find('.diagnosisId').val();
@@ -14,20 +14,20 @@ $(document).on('click', 'save.class', function(){
         'class':diagnosisClassObj.val()
     })
 });
-$(document).on('click', 'delete.class', function() {
+$('.delete').click( function() {
     let btn = event.target;
     let obj = btn.closest('tr');
     let diagnosisId =  $(obj).find('.diagnosisId').val();
     if(diagnosisId == 0) {
-        $(obj).parent().removeChild(obj);
+        $(obj).remove();
     }else {
-        $(obj).parent().removeChild(obj);
+        $(obj).remove();
         $.get('/DeleteDiagnosis',{
             'id':diagnosisId
         })
     }
 });
-$(document).on('click', 'edit.class', function() {
+$('.edit').click( function() {
     let btn = event.target;
     let obj = btn.closest('tr');
     $(obj).find('.diagnosisName').removeProp('readonly');
@@ -35,16 +35,14 @@ $(document).on('click', 'edit.class', function() {
     $(obj).find('.save').prop('type','button');
     $(obj).find('.edit').prop('type','hidden');
 });
-$('#add').click(function () {
-    const row = $('<tr class ="row">\n' +
-        '        <input class="diagnosisId" type="hidden" value="0">\n' +
-        '        <td><input class="diagnosisClass" type="text" value=""></td>\n' +
-        '        <td><input class="diagnosisName" type="text" value=""></td>\n' +
-        '        <td id="action">\n' +
-        '            <input class="edit" type="hidden" value="Edit">\n' +
-        '            <input class="save" type="button" value="Save">\n' +
-        '            <input class="delete" type="button" value="Delete">\n' +
-        '        </td>\n' +
-        '    </tr>');
-    $('#diagnosisContainer').append(row.html());
+    $('#add').click(function () {
+        let row = $('#diagnosisContainer').find('.row').clone(true,true);
+        $(row).find('.diagnosisName').val('');
+        $(row).find('.diagnosisName').removeProp('readonly');
+        $(row).find('.diagnosisClass').val('');
+        $(row).find('.diagnosisClass').removeProp('readonly');
+        $(row).find('.diagnosisId').val('0');
+        $(row).find('.edit').prop('type','hidden');
+        $(row).find('.save').prop('type','button');
+        $('#diagnosisContainer').append(row.get(0));
 });

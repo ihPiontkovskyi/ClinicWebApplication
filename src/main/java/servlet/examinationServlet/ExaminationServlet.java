@@ -1,6 +1,5 @@
-package servlet.diagnosisServlet;
+package servlet.examinationServlet;
 
-import model.Diagnosis;
 import servlet.AbstractServlet;
 
 import javax.servlet.ServletException;
@@ -9,12 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/DeleteDiagnosis")
-public class RemoveDiagnosisServlet extends AbstractServlet {
+@WebServlet("/examination")
+public class ExaminationServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        Diagnosis currDiagnosis = getDiagnosisService().findById(Integer.parseInt(getStringParam(request,"id")));
-        getDiagnosisService().delete(currDiagnosis);
+        forward("examination.jsp", request, response);
     }
 }

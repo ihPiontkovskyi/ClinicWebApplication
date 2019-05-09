@@ -11,6 +11,9 @@ import java.util.List;
 @Table(name = "specialization")
 public class Specialization implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int specializationId;
+
     private String specializationName;
 
     @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

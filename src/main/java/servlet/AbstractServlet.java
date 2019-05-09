@@ -16,9 +16,17 @@ import java.io.IOException;
 @Data
 public class AbstractServlet extends HttpServlet {
     private EntityService<Diagnosis> diagnosisService;
+    private EntityService<Examination> examinationService;
+    private EntityService<Patient> patientService;
+    private EntityService<Staff> staffService;
+    private EntityService<Specialization> specializationService;
     @Override
     public void init() throws ServletException {
         diagnosisService = new DiagnosisServiceImpl();
+        examinationService = new ExaminationServiceImpl();
+        patientService = new PatientServiceImpl();
+        staffService = new StaffServiceImpl();
+        specializationService = new SpecializationServiceImpl();
     }
     protected void redirectToAction(String uri, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

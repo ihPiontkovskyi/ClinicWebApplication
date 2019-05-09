@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "diagnosis")
 public class Diagnosis implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int diagnosisId;
 
     private String diagnosisName;
