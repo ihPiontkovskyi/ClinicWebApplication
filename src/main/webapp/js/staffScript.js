@@ -4,15 +4,20 @@ $('.save').click( function(){
     let staffId =  $(obj).find('.staffId').val();
     let staffName =  $(obj).find('.staffName');
     let selectSpec =  $(obj).find('.selectSpecialization');
-    staffName.prop('readonly','readonly');
-    selectSpec.prop('disable','disabled');
-    $(obj).find('.save').prop('type','hidden');
-    $(obj).find('.edit').prop('type','button');
-    $.get('/SaveOrUpdateStaff',{
-        'id':staffId,
-        'name':staffName.val(),
-        'specialization':selectSpec.val()
-    })
+    if(staffName.val().trim() == "" || selectSpec.val() == null)
+    {
+        alert("Error: invalid fields!");
+    }else {
+        staffName.prop('readonly', 'readonly');
+        selectSpec.prop('disable', 'disabled');
+        $(obj).find('.save').prop('type', 'hidden');
+        $(obj).find('.edit').prop('type', 'button');
+        $.get('/SaveOrUpdateStaff', {
+            'id': staffId,
+            'name': staffName.val(),
+            'specialization': selectSpec.val()
+        })
+    }
 });
 $('.delete').click( function() {
     let btn = event.target;

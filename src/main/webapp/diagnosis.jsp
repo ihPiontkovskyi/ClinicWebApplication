@@ -7,10 +7,12 @@
 <html>
 <head>
     <title>Diagnosis</title>
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 <h2>Diagnosis table</h2>
+<div class="tableContent">
 <table id="diagnosis" border="1">
     <thead>
     <tr>
@@ -30,20 +32,23 @@
         <td><input class="diagnosisClass" readonly="readonly" type="text" value="<%=c.getDiagnosisClass()%>"></td>
         <td><input class="diagnosisName" readonly="readonly" type="text" value="<%=c.getDiagnosisName()%>"></td>
         <td id="action">
-            <input class="edit" type="button" value="Edit">
-            <input class="save" type="hidden" value="Save">
-            <input class="delete" type="button" value="Delete">
+            <input class="edit" type="button" >
+            <input class="save" type="hidden" >
+            <input class="delete" type="button" >
         </td>
     </tr>
     <% } %>
-    <input id="add" type="button" value="Add">
+    <input id="add" type="button" >
     </tbody>
 </table>
-<div>
-    <li><a href="examination.jsp">Examination</a> </li>
-    <li><a href="patient.jsp">Patient</a> </li>
-    <li><a href="specialization.jsp">Specialization</a> </li>
-    <li><a href="staff.jsp">Staff</a> </li>
+</div>
+<div class="hrefs">
+    <ul>
+        <li><a href="examination.jsp">Examination</a></li>
+        <li><a href="patient.jsp">Patient</a></li>
+        <li><a href="specialization.jsp">Specialization</a></li>
+        <li><a href="staff.jsp">Staff</a></li>
+    </ul>
 </div>
 <script type="text/javascript" src="js/diagnosisScript.js"></script>
 </body>
