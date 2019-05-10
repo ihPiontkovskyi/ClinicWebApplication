@@ -3,25 +3,36 @@ $('.save').click(function () {
     let obj = btn.closest('tr');
     let specializationId = $(obj).find('.specializationId').val();
     let specializationName = $(obj).find('.specializationName');
-
-    specializationName.prop('readonly', 'readonly');
-    $(obj).find('.save').prop('type', 'hidden');
-    $(obj).find('.edit').prop('type', 'button');
-    $.get('/SaveOrUpdateSpecialization', {
-        'id': specializationId,
-        'name': specializationName.val()
-    })
+    let uniq = true;
+    $('input').each(function () {
+        if ($(this).prop('type') === 'text'
+            && $(this).val().trim() === specializationName.val().trim()
+            && $(this).get(0) !== specializationName.get(0)) {
+            uniq = false;
+        }
+    });
+    if (uniq) {
+        specializationName.prop('readonly', 'readonly');
+        $(obj).find('.save').prop('type', 'hidden');
+        $(obj).find('.edit').prop('type', 'button');
+        $.get('/SaveOrUpdateSpecialization', {
+            'id': specializationId,
+            'name': specializationName.val()
+        })
+    } else {
+        alert("Error: invalid fields!");
+    }
 });
 $('.delete').click(function () {
     let btn = event.target;
     let obj = btn.closest('tr');
-    let diagnosisId = $(obj).find('.specializationId').val();
-    if (diagnosisId == 0) {
+    let specializationId = $(obj).find('.specializationId').val();
+    if (specializationId == 0) {
         $(obj).remove();
     } else {
         $(obj).remove();
         $.get('/DeleteSpecialization', {
-            'id': diagnosisId
+            'id': specializationId
         })
     }
 });
