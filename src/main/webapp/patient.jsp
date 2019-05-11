@@ -34,7 +34,7 @@
         <input class="patientId" type="hidden" value="<%=c.getPatientId()%>">
         <td><input class="patientFirstName" readonly="readonly" type="text" value="<%=c.getPatientFirstName()%>"></td>
         <td><input class="patientLastName" readonly="readonly" type="text" value="<%=c.getPatientLastName()%>"></td>
-        <td><input id="datePicker" disabled="disabled" type="text" value="<%=c.getPatientDateOfBirth()%>"></td>
+        <td><input class="datePicker" disabled="disabled" type="text" value="<%=c.getPatientDateOfBirth()%>"></td>
         <td id="action">
             <input class="edit" type="button">
             <input class="save" type="hidden">

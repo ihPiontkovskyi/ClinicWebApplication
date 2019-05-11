@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#datePicker").datepicker({
+    $(".datePicker").datepicker({
         dateFormat: 'yy-mm-dd'
     });
 
@@ -11,8 +11,8 @@ $('.save').click(function () {
     let patientId = $(obj).find('.patientId').val();
     let firstName = $(obj).find('.patientFirstName');
     let lastName = $(obj).find('.patientLastName');
-    let date = $(obj).find('#datePicker');
-    if (firstName.val().trim() == "" || lastName.val().trim()) {
+    let date = $(obj).find('.datePicker');
+    if (firstName.val().trim() === "" || lastName.val().trim() === "") {
         alert("Error: invalid fields!");
     } else {
         date.prop('disabled', 'disabled');
@@ -32,7 +32,7 @@ $('.delete').click(function () {
     let btn = event.target;
     let obj = btn.closest('tr');
     let patientId = $(obj).find('.patientId').val();
-    if (patientId == 0) {
+    if (patientId === 0) {
         $(obj).remove();
     } else {
         $(obj).remove();
@@ -46,7 +46,7 @@ $('.edit').click(function () {
     let obj = btn.closest('tr');
     $(obj).find('.patientFirstName').removeProp('readonly');
     $(obj).find('.patientLastName').removeProp('readonly');
-    $(obj).find('#datePicker').removeProp('disabled');
+    $(obj).find('.datePicker').removeProp('disabled');
     $(obj).find('.save').prop('type', 'button');
     $(obj).find('.edit').prop('type', 'hidden');
 });
@@ -56,8 +56,8 @@ $('#add').click(function () {
     $(row).find('.patientFirstName').removeProp('readonly');
     $(row).find('.patientLastName').val('');
     $(row).find('.patientLastName').removeProp('readonly');
-    $(row).find('#datePicker').val('2000-01-01');
-    $(row).find('#datePicker').removeProp('disabled');
+    $(row).find('.datePicker').val('2000-01-01');
+    $(row).find('.datePicker').removeProp('disabled');
     $(row).find('.patientId').val('0');
     $(row).find('.edit').prop('type', 'hidden');
     $(row).find('.save').prop('type', 'button');

@@ -59,7 +59,7 @@
             </td>
 
             <td>
-                <input id="datePicker" disabled="disabled" type="text" value="<%=c.getExaminationDate()%>">
+                <input class="datePicker" disabled="disabled" type="text" value="<%=c.getExaminationDate()%>">
             </td>
 
             <td>
