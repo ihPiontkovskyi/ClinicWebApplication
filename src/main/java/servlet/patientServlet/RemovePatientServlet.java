@@ -16,5 +16,4 @@ public class RemovePatientServlet extends AbstractServlet {
                          HttpServletResponse response) {
         Patient currPatient = getPatientService().findById(Integer.parseInt(getStringParam(request,"id")));
         getPatientService().delete(currPatient);
-    }
-}
+    }}
