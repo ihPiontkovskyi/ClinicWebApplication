@@ -13,8 +13,7 @@ import java.io.IOException;
 @WebServlet("/DeleteExamination")
 public class RemoveExaminationServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
         Examination currExamination = getExaminationService().findById(Integer.parseInt(getStringParam(request,"id")));
         getExaminationService().delete(currExamination);
     }

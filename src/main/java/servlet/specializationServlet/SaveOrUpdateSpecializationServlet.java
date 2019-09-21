@@ -12,13 +12,11 @@ import java.io.IOException;
 @WebServlet("/SaveOrUpdateSpecialization")
 public class SaveOrUpdateSpecializationServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
 
         Specialization specialization = new Specialization();
         specialization.setSpecializationId(Integer.parseInt(getStringParam(request, "id")));
         specialization.setSpecializationName(getStringParam(request, "name"));
         getSpecializationService().saveOrUpdate(specialization);
-        forward("specialization.jsp", request, response);
     }
 }

@@ -1,7 +1,7 @@
-package servlet.examinationServlet;
+package servlet.diagnosisServlet;
 
-import model.Examination;
-import model.Patient;
+import model.Diagnosis;
+import model.Staff;
 import servlet.AbstractServlet;
 
 import javax.servlet.ServletException;
@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 
-@WebServlet("/loadExam")
-public class ExaminationServlet extends AbstractServlet {
+@WebServlet("/loadDiag")
+public class LoadServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws IOException {
-        HashSet<Examination> set = getExaminationService().findAll();
-        StringBuilder staffJson = new StringBuilder("{\"exams\":[  ");
+        HashSet<Diagnosis> set = getDiagnosisService().findAll();
+        StringBuilder staffJson = new StringBuilder("{\"diagnosis\":[  ");
         set.forEach(e1 -> staffJson.append(e1.toJson()).append(","));
         staffJson.deleteCharAt(staffJson.length() - 1);
         staffJson.append("]}");

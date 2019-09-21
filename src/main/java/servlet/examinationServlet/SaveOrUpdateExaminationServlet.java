@@ -13,8 +13,7 @@ import java.sql.Date;
 @WebServlet("/SaveOrUpdateExamination")
 public class SaveOrUpdateExaminationServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
 
         Examination currExamination = new Examination();
         currExamination.setExaminationId(Integer.parseInt(getStringParam(request,"id")));
@@ -24,6 +23,5 @@ public class SaveOrUpdateExaminationServlet extends AbstractServlet {
         currExamination.setTermOfTreatment(Integer.parseInt(getStringParam(request,"term")));
         currExamination.setExaminationDate(Date.valueOf(getStringParam(request,"date")));
         getExaminationService().saveOrUpdate(currExamination);
-        forward("examination.jsp",request,response);
     }
 }

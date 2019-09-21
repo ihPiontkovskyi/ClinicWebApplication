@@ -12,14 +12,11 @@ import java.io.IOException;
 @WebServlet("/SaveOrUpdateDiagnosis")
 public class SaveOrUpdateDiagnosisServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
 
         Diagnosis currDiagnosis = new Diagnosis();
         currDiagnosis.setDiagnosisId(Integer.parseInt(getStringParam(request,"id")));
           currDiagnosis.setDiagnosisName(getStringParam(request,"name"));
-        currDiagnosis.setDiagnosisClass(getStringParam(request,"class"));
         getDiagnosisService().saveOrUpdate(currDiagnosis);
-        forward("diagnosis.jsp", request, response);
     }
 }

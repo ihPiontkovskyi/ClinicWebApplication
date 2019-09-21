@@ -14,8 +14,7 @@ import java.sql.Date;
 @WebServlet("/SaveOrUpdatePatient")
 public class SaveOrUpdateDiagnosisServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
         Patient patient = new Patient();
         patient.setPatientId(Integer.parseInt(getStringParam(request,"id")));
         patient.setPatientFirstName(getStringParam(request,"firstName"));

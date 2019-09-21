@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Index</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+</head>
+<body>
+<div id="specializationDiv" hidden="hidden" class="tableContent">
+    <table id="specialization" border="1">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="specializationContainer">
+        <tr class="row" hidden="hidden">
+            <input class="specializationId" type="hidden"/>
+            <td><input class="specializationName" readonly="readonly" type="text">
+            </td>
+            <td id="action">
+                <input onclick="editSpec()" class="editSpec" type="button">
+                <input onclick="saveSpec()" class="saveSpec" type="hidden">
+                <input onclick="deleteSpec()" class="deleteSpec" type="button">
+            </td>
+        </tr>
+        <input onclick="addSpec()" class="addSpec" type="button"/>
+        </tbody>
+    </table>
+</div>
+<div id="staffDiv" hidden="hidden" class="tableContent">
+    <table id="staff" border="1">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="staffContainer">
+        <tr hidden="hidden" class="row">
+            <input class="staffId" type="hidden"/>
+            <td><input class="staffName" readonly="readonly" type="text"></td>
+            <td>
+                <select id="selectSpec" class="selectSpecialization" disabled="disabled">
+                </select>
+            </td>
+
+            <td>
+                <input onclick="editStaff()" class="editStaff" type="button">
+                <input onclick="saveStaff()" class="saveStaff" type="hidden">
+                <input onclick="deleteStaff()" class="deleteStaff" type="button">
+            </td>
+        </tr>
+
+        <input onclick="addStaff()" class="addStaff" type="button"/>
+        </tbody>
+    </table>
+</div>
+<div id="diagnosisDiv" hidden="hidden" class="tableContent">
+    <table id="diagnosis" border="1">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="diagnosisContainer">
+        <tr class="row" hidden="hidden">
+            <input class="diagnosisId" type="hidden"/>
+            <td><input class="diagnosisName" readonly="readonly" type="text"></td>
+            <td>
+                <input onclick="editDiag()" class="editDiag" type="button">
+                <input onclick="saveDiag()" class="saveDiag" type="hidden">
+                <input onclick="deleteDiag()" class="deleteDiag" type="button">
+            </td>
+        </tr>
+        <input onclick="addDiag()" class="addDiag" type="button"/>
+        </tbody>
+    </table>
+</div>
+<div id="patientDiv" hidden="hidden" class="tableContent">
+    <table id="patient" border="1">
+        <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Date of birth</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="patientContainer">
+        <tr class="row" hidden="hidden">
+            <input class="patientId" type="hidden"/>
+            <td><input class="patientFirstName" readonly="readonly" type="text"></td>
+            <td><input class="patientLastName" readonly="readonly" type="text"></td>
+            <td><input class="datePicker" disabled="disabled" type="text"></td>
+            <td>
+                <input onclick="editPat()" class="editPat" type="button">
+                <input onclick="savePat()" class="savePat" type="hidden">
+                <input onclick="deletePat()" class="deletePat" type="button">
+            </td>
+        </tr>
+        <input onclick="addPat()" class="addPat" type="button"/>
+        </tbody>
+    </table>
+</div>
+<div id="examinationDiv" hidden="hidden" class="tableContent">
+    <table id="examination">
+        <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Examination Date</th>
+            <th>Diagnosis</th>
+            <th>Term of treatment</th>
+            <th>Doctor</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="examinationContainer">
+        <tr class="row" hidden="hidden">
+            <input class="examinationId" type="hidden" readonly="readonly"/>
+            <td>
+                <select class="selectPatient" disabled="disabled">
+                </select>
+            </td>
+            <td>
+                <input class="datePicker" disabled="disabled" type="text">
+            </td>
+
+            <td>
+                <select class="selectDiagnosis" disabled="disabled">
+                </select>
+            </td>
+            <td>
+                <input class="inputTerm" readonly="readonly" type="text">
+            </td>
+            <td>
+                <select class="selectStaff" disabled="disabled">
+                </select>
+            </td>
+            <td>
+                <input onclick="editExam()" class="editExam" type="button">
+                <input onclick="saveExam()" class="saveExam" type="hidden">
+                <input onclick="deleteExam()" class="deleteExam" type="button">
+            </td>
+        </tr>
+        <input onclick="addExam()" class="addExam" type="button"/>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="hrefs">
+    <ul>
+        <li><a onclick="loadExamPage()">Examination</a></li>
+        <li><a onclick="loadSpecPage()">Specialization</a></li>
+        <li><a onclick="loadPatPage()">Patient</a></li>
+        <li><a onclick="loadDiagPage()">Diagnosis</a></li>
+        <li><a onclick=loadStaffPage()>Staff</a></li>
+    </ul>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+</html>

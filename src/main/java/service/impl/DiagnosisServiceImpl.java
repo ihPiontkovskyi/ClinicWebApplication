@@ -7,7 +7,7 @@ import service.EntityService;
 import java.util.HashSet;
 
 public class DiagnosisServiceImpl implements EntityService<Diagnosis> {
-    private EntityDTO diagnosisDTO = new EntityDTO<>(Diagnosis.class);
+    private EntityDTO<Diagnosis> diagnosisDTO = new EntityDTO<>(Diagnosis.class);
 
     @Override
     public HashSet findAll() {
@@ -26,6 +26,7 @@ public class DiagnosisServiceImpl implements EntityService<Diagnosis> {
 
     @Override
     public Diagnosis findById(Integer id) {
-        return (Diagnosis)diagnosisDTO.findById(id);
+        return diagnosisDTO.findById(id);
     }
+
 }

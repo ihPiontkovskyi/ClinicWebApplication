@@ -12,8 +12,7 @@ import java.io.IOException;
 @WebServlet("/DeleteDiagnosis")
 public class RemoveDiagnosisServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+                         HttpServletResponse response) {
         Diagnosis currDiagnosis = getDiagnosisService().findById(Integer.parseInt(getStringParam(request,"id")));
         getDiagnosisService().delete(currDiagnosis);
     }

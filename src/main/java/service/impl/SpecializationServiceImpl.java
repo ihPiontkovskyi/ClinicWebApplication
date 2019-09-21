@@ -1,32 +1,32 @@
 package service.impl;
 
 import dto.EntityDTO;
-import model.Patient;
 import model.Specialization;
 import service.EntityService;
 
 import java.util.HashSet;
 
 public class SpecializationServiceImpl implements EntityService<Specialization> {
-    private EntityDTO specizalizationDTO = new EntityDTO<>(Specialization.class);
+    private EntityDTO<Specialization> specializationDTO = new EntityDTO<>(Specialization.class);
 
     @Override
     public HashSet findAll() {
-        return specizalizationDTO.findAll();
+        return specializationDTO.findAll();
     }
 
     @Override
     public void delete(Specialization specialization) {
-        specizalizationDTO.delete(specialization);
+        specializationDTO.delete(specialization);
     }
 
     @Override
     public void saveOrUpdate(Specialization specialization) {
-        specizalizationDTO.saveOrUpdate(specialization);
+        specializationDTO.saveOrUpdate(specialization);
     }
 
     @Override
     public Specialization findById(Integer id) {
-        return (Specialization) specizalizationDTO.findById(id);
+        return specializationDTO.findById(id);
     }
+
 }
