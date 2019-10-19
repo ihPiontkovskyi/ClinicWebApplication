@@ -20,6 +20,7 @@ public class AbstractServlet extends HttpServlet {
     private EntityService<Patient> patientService;
     private EntityService<Staff> staffService;
     private EntityService<Specialization> specializationService;
+    private EntityService<Position> positionService;
     @Override
     public void init() {
         diagnosisService = new DiagnosisServiceImpl();
@@ -27,6 +28,7 @@ public class AbstractServlet extends HttpServlet {
         patientService = new PatientServiceImpl();
         staffService = new StaffServiceImpl();
         specializationService = new SpecializationServiceImpl();
+        positionService = new PositionServiceImpl();
     }
     protected void redirectToAction(String uri, HttpServletRequest request, HttpServletResponse response)
             throws IOException {

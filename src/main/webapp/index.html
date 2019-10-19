@@ -3,167 +3,214 @@
     <meta charset="utf-8"/>
     <title>Index</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
 </head>
 <body>
-<div id="specializationDiv" hidden="hidden" class="tableContent">
-    <table id="specialization" border="1">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody id="specializationContainer">
-        <tr class="row" hidden="hidden">
-            <input class="specializationId" type="hidden"/>
-            <td><input class="specializationName" readonly="readonly" type="text">
-            </td>
-            <td id="action">
-                <input onclick="editSpec()" class="editSpec" type="button">
-                <input onclick="saveSpec()" class="saveSpec" type="hidden">
-                <input onclick="deleteSpec()" class="deleteSpec" type="button">
-            </td>
-        </tr>
-        <input onclick="addSpec()" class="addSpec" type="button"/>
-        </tbody>
-    </table>
-</div>
-<div id="staffDiv" hidden="hidden" class="tableContent">
-    <table id="staff" border="1">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Specialization</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody id="staffContainer">
-        <tr hidden="hidden" class="row">
-            <input class="staffId" type="hidden"/>
-            <td><input class="staffName" readonly="readonly" type="text"></td>
-            <td>
-                <select id="selectSpec" class="selectSpecialization" disabled="disabled">
-                </select>
-            </td>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Clinic management</div>
+        <div class="list-group list-group-flush">
+            <a onclick="loadExamPage()" class="list-group-item list-group-item-action bg-light">Examinations</a>
+            <a onclick="loadStaffPage()" class="list-group-item list-group-item-action bg-light">Staff</a>
+            <a onclick="loadPatPage()" class="list-group-item list-group-item-action bg-light">Patients</a>
+            <a onclick="loadDiagPage()" class="list-group-item list-group-item-action bg-light">Diagnosis</a>
+            <a onclick="loadSpecPage()" class="list-group-item list-group-item-action bg-light">Specializations</a>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Tables</button>
 
-            <td>
-                <input onclick="editStaff()" class="editStaff" type="button">
-                <input onclick="saveStaff()" class="saveStaff" type="hidden">
-                <input onclick="deleteStaff()" class="deleteStaff" type="button">
-            </td>
-        </tr>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <input onclick="addStaff()" class="addStaff" type="button"/>
-        </tbody>
-    </table>
-</div>
-<div id="diagnosisDiv" hidden="hidden" class="tableContent">
-    <table id="diagnosis" border="1">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody id="diagnosisContainer">
-        <tr class="row" hidden="hidden">
-            <input class="diagnosisId" type="hidden"/>
-            <td><input class="diagnosisName" readonly="readonly" type="text"></td>
-            <td>
-                <input onclick="editDiag()" class="editDiag" type="button">
-                <input onclick="saveDiag()" class="saveDiag" type="hidden">
-                <input onclick="deleteDiag()" class="deleteDiag" type="button">
-            </td>
-        </tr>
-        <input onclick="addDiag()" class="addDiag" type="button"/>
-        </tbody>
-    </table>
-</div>
-<div id="patientDiv" hidden="hidden" class="tableContent">
-    <table id="patient" border="1">
-        <thead>
-        <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Date of birth</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody id="patientContainer">
-        <tr class="row" hidden="hidden">
-            <input class="patientId" type="hidden"/>
-            <td><input class="patientFirstName" readonly="readonly" type="text"></td>
-            <td><input class="patientLastName" readonly="readonly" type="text"></td>
-            <td><input class="datePicker" disabled="disabled" type="text"></td>
-            <td>
-                <input onclick="editPat()" class="editPat" type="button">
-                <input onclick="savePat()" class="savePat" type="hidden">
-                <input onclick="deletePat()" class="deletePat" type="button">
-            </td>
-        </tr>
-        <input onclick="addPat()" class="addPat" type="button"/>
-        </tbody>
-    </table>
-</div>
-<div id="examinationDiv" hidden="hidden" class="tableContent">
-    <table id="examination">
-        <thead>
-        <tr>
-            <th>Patient</th>
-            <th>Examination Date</th>
-            <th>Diagnosis</th>
-            <th>Term of treatment</th>
-            <th>Doctor</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody id="examinationContainer">
-        <tr class="row" hidden="hidden">
-            <input class="examinationId" type="hidden" readonly="readonly"/>
-            <td>
-                <select class="selectPatient" disabled="disabled">
-                </select>
-            </td>
-            <td>
-                <input class="datePicker" disabled="disabled" type="text">
-            </td>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link">Database<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="database">
+            <div id="specializationDiv" hidden="hidden" class="tableContent">
+                <table class="table table-hover" id="specialization">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="specializationContainer">
+                    <tr class="row" hidden="hidden">
+                        <input class="specializationId" type="hidden"/>
+                        <td>
+                            <label>
+                                <input class="specializationName" readonly="readonly" type="text">
+                            </label>
+                        </td>
+                        <td id="action">
+                            <input onclick="editSpec()" class="editSpec editButton" type="button">
+                            <input onclick="saveSpec()" class="saveSpec saveButton" type="hidden">
+                            <input onclick="deleteSpec()" class="deleteSpec deleteButton" type="button">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" onclick="addSpec()" type="submit">Add</button>
+            </div>
+            <div id="staffDiv" hidden="hidden" class="tableContent">
+                <table class="table table-hover" id="staff">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Specialization</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="staffContainer">
+                    <tr hidden="hidden" class="row">
+                        <input class="staffId" type="hidden"/>
+                        <td><label><input class="staffName" readonly="readonly" type="text"></label></td>
+                        <td>
+                            <label>
+                                <input id="inputSpec" readonly="readonly"/>
+                                <input id="inputSpec_hidden" hidden="hidden" readonly="readonly"/>
+                            </label>
+                        </td>
 
-            <td>
-                <select class="selectDiagnosis" disabled="disabled">
-                </select>
-            </td>
-            <td>
-                <input class="inputTerm" readonly="readonly" type="text">
-            </td>
-            <td>
-                <select class="selectStaff" disabled="disabled">
-                </select>
-            </td>
-            <td>
-                <input onclick="editExam()" class="editExam" type="button">
-                <input onclick="saveExam()" class="saveExam" type="hidden">
-                <input onclick="deleteExam()" class="deleteExam" type="button">
-            </td>
-        </tr>
-        <input onclick="addExam()" class="addExam" type="button"/>
-        </tbody>
-    </table>
+                        <td>
+                            <input onclick="editStaff()" class="editStaff editButton" type="button">
+                            <input onclick="saveStaff()" class="saveStaff saveButton" type="hidden">
+                            <input onclick="deleteStaff()" class="deleteStaff deleteButton" type="button">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" onclick="addStaff()" type="submit">Add</button>
+            </div>
+            <div id="diagnosisDiv" hidden="hidden" class="tableContent">
+                <table class="table table-hover" id="diagnosis">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="diagnosisContainer">
+                    <tr class="row" hidden="hidden">
+                        <input class="diagnosisId" type="hidden"/>
+                        <td><label><input class="diagnosisName" readonly="readonly" type="text"></label></td>
+                        <td>
+                            <input onclick="editDiag()" class="editDiag editButton" type="button">
+                            <input onclick="saveDiag()" class="saveDiag deleteButton" type="hidden">
+                            <input onclick="deleteDiag()" class="deleteDiag deleteButton" type="button">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" onclick="addDiag()" type="submit">Add</button>
+            </div>
+            <div id="patientDiv" hidden="hidden" class="tableContent">
+                <table class="table table-hover" id="patient">
+                    <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Date of birth</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="patientContainer">
+                    <tr class="row" hidden="hidden">
+                        <input class="patientId" type="hidden"/>
+                        <td><label><input class="patientFirstName" readonly="readonly" type="text"></label></td>
+                        <td><label><input class="patientLastName" readonly="readonly" type="text"></label></td>
+                        <td><label><input class="datePicker" disabled="disabled" type="text"></label></td>
+                        <td>
+                            <input onclick="editPat()" class="editPat editButton" type="button">
+                            <input onclick="savePat()" class="savePat saveButton" type="hidden">
+                            <input onclick="deletePat()" class="deletePat deleteButton" type="button">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" onclick="addPat()" type="submit">Add</button>
+            </div>
+            <div id="examinationDiv" hidden="hidden" class="tableContent">
+                <table class="table table-hover" id="examination">
+                    <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Examination Date</th>
+                        <th>Diagnosis</th>
+                        <th>Term of treatment</th>
+                        <th>Doctor</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="examinationContainer">
+                    <tr class="row" hidden="hidden">
+                        <input class="examinationId" type="hidden" readonly="readonly"/>
+                        <td>
+                            <label>
+                                <input id="selectPatient" readonly="readonly">
+                                <input id="selectPatient_hidden" readonly="readonly">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input class="datePicker" disabled="disabled" type="text">
+                            </label>
+                        </td>
+
+                        <td><label>
+                            <input id="selectDiagnosis" readonly="readonly">
+                            <input id="selectDiagnosis_hidden" readonly="readonly">
+
+                        </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input class="inputTerm" readonly="readonly" type="text">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input id="selectStaff" readonly="readonly">
+                                <input id="selectStaff_hidden" readonly="readonly">
+
+                            </label>
+                        </td>
+                        <td>
+                            <input onclick="editExam()" class="editExam editButton" type="button">
+                            <input onclick="saveExam()" class="saveExam saveButton" type="hidden">
+                            <input onclick="deleteExam()" class="deleteExam deleteButton" type="button">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary pull-right" onclick="addExam()" type="submit">Add</button>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+    </div>
 </div>
 
 
-<div class="hrefs">
-    <ul>
-        <li><a onclick="loadExamPage()">Examination</a></li>
-        <li><a onclick="loadSpecPage()">Specialization</a></li>
-        <li><a onclick="loadPatPage()">Patient</a></li>
-        <li><a onclick="loadDiagPage()">Diagnosis</a></li>
-        <li><a onclick=loadStaffPage()>Staff</a></li>
-    </ul>
-</div>
 <script type="text/javascript" src="js/script.js"></script>
-
 </body>
 </html>

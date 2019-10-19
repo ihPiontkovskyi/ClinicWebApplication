@@ -1,4 +1,5 @@
 function loadSpecPage() {
+    setActive(event);
     let container = $(document).context.getElementById('specializationContainer');
     let divStaff = $(document).context.getElementById('staffDiv');
     let div = $(document).context.getElementById('specializationDiv');
@@ -91,6 +92,7 @@ function addSpec() {
 }
 
 function loadStaffPage() {
+    setActive(event);
     let container = $(document).context.getElementById('staffContainer');
     let div = $(document).context.getElementById('staffDiv');
     let divSpec = $(document).context.getElementById('specializationDiv');
@@ -117,9 +119,36 @@ function loadStaffRow(id, fullName, specId) {
     $(row).find('.staffName').val(fullName);
     $(row).removeProp('hidden');
     $(row).prop('class', 'executed');
-    $(row).find('.selectSpecialization').val(specId);
-    $(row).find('.staffId').val(id);
-    $(container).append(row.get(0));
+    $.get('/loadSpecialization', {}, function (data) {
+        let json = JSON.parse(data);
+        let parsed = [];
+        json.specializations.forEach(function (item) {
+            parsed.push({
+                key: item.specializationId,
+                value: item.specializationName
+            });
+        });
+        $(row).find('#inputSpec').autocomplete({
+            minLength: 1,
+            source: parsed,
+            select: function (event, ui) {
+                $(row).find('#inputSpec').val(ui.item.value);
+                $(row).find('#inputSpec_hidden').val(ui.item.key);
+                return false;
+            },
+
+        }).val(
+            function () {
+                for (let i = 0; i < parsed.length; ++i) {
+                    if (parsed[i].key === specId)
+                        return parsed[i].value
+                }
+            }
+        ).prop('type', 'text');
+
+        $(row).find('.staffId').val(id);
+        $(container).append(row.get(0));
+    });
 }
 
 function saveStaff() {
@@ -127,12 +156,13 @@ function saveStaff() {
     let obj = btn.closest('tr');
     let staffId = $(obj).find('.staffId').val();
     let staffName = $(obj).find('.staffName');
-    let selectSpec = $(obj).find('.selectSpecialization');
+    let selectSpec = $(obj).find('#inputSpec_hidden');
+    let selectSpecDis = $(obj).find('#inputSpec');
     if (staffName.val().trim() === "" || selectSpec.val() == null) {
         alert("Error: invalid fields!");
     } else {
         staffName.prop('readonly', 'readonly');
-        selectSpec.prop('disable', 'disabled');
+        selectSpecDis.prop('readonly', 'readonly');
         $(obj).find('.saveStaff').prop('type', 'hidden');
         $(obj).find('.editStaff').prop('type', 'button');
         $.get('/SaveOrUpdateStaff', {
@@ -161,7 +191,7 @@ function editStaff() {
     let btn = event.target;
     let obj = btn.closest('tr');
     $(obj).find('.staffName').removeProp('readonly');
-    $(obj).find('.selectSpecialization').removeProp('disabled');
+    $(obj).find('#inputSpec').removeProp('readonly');
     $(obj).find('.saveStaff').prop('type', 'button');
     $(obj).find('.editStaff').prop('type', 'hidden');
 }
@@ -172,8 +202,7 @@ function addStaff() {
     $(row).find('.staffName').val('');
     $(row).removeProp('hidden');
     $(row).find('.staffName').removeProp('readonly');
-    $(row).find('.selectSpecialization').val('0');
-    $(row).find('.selectSpecialization').removeProp('disabled');
+    $(row).find('.inputSpec').removeProp('disabled');
     $(row).find('.staffId').val('0');
     $(row).find('.editStaff').prop('type', 'hidden');
     $(row).find('.saveStaff').prop('type', 'button');
@@ -181,6 +210,7 @@ function addStaff() {
 }
 
 function loadDiagPage() {
+    setActive(event);
     let container = $(document).context.getElementById('diagnosisContainer');
     let div = $(document).context.getElementById('diagnosisDiv');
     let divStaff = $(document).context.getElementById('staffDiv');
@@ -276,6 +306,7 @@ function addDiag() {
 }
 
 function loadPatPage() {
+    setActive(event);
     let container = $(document).context.getElementById('patientContainer');
     let divPat = $(document).context.getElementById('patientDiv');
     let div = $(document).context.getElementById('diagnosisDiv');
@@ -297,7 +328,7 @@ function loadPatPage() {
 } //Patient
 
 $(document).ready(function () {
-    loadSelects();
+    $.get('/loadPat', {}, {});
     $(".datePicker").datepicker({
         dateFormat: 'yy-mm-dd'
     });
@@ -308,6 +339,11 @@ $(document).change(function () {
         dateFormat: 'yy-mm-dd'
     });
 
+});
+
+$("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
 });
 
 function savePat() {
@@ -454,7 +490,7 @@ function loadPatRow(id, first, last, date) {
         dateFormat: 'yy-mm-dd'
     });
     let inputEdit = document.createElement('input');
-    $(inputEdit).prop('class', 'editPat').prop('type', 'button');
+    $(inputEdit).prop('class', 'editPat editButton').prop('type', 'button');
     $(inputEdit).click(function () {
         let btn = event.target;
         let obj = btn.closest('tr');
@@ -465,7 +501,7 @@ function loadPatRow(id, first, last, date) {
         $(obj).find('.editPat').prop('type', 'hidden');
     });
     let inputSave = document.createElement('input');
-    $(inputSave).prop('class', 'savePat').prop('type', 'hidden');
+    $(inputSave).prop('class', 'savePat saveButton').prop('type', 'hidden');
     $(inputSave).click(function () {
         let btn = event.target;
         let obj = btn.closest('tr');
@@ -490,7 +526,7 @@ function loadPatRow(id, first, last, date) {
         }
     });
     let inputDelete = document.createElement('input');
-    $(inputDelete).prop('class', 'deletePat').prop('type', 'button');
+    $(inputDelete).prop('class', 'deletePat deleteButton').prop('type', 'button');
     $(inputDelete).click(function () {
         let btn = event.target;
         let obj = btn.closest('tr');
@@ -528,6 +564,7 @@ $(".inputTerm").on("keypress keyup blur", function (event) {
 });
 
 function loadExamPage() { //Examination
+    setActive(event);
     let container = $(document).context.getElementById('examinationContainer');
     let divPat = $(document).context.getElementById('patientDiv');
     let div = $(document).context.getElementById('diagnosisDiv');
@@ -548,45 +585,6 @@ function loadExamPage() { //Examination
     $(divExam).removeProp('hidden');
 } //Exam
 
-function loadSelects() {
-    $.get('/loadSpecialization', {}, function (data) {
-        let json = JSON.parse(data);
-        json.specializations.forEach(function (item) {
-            $('#selectSpec').append($('<option>', {
-                value: item.specializationId,
-                text: item.specializationName
-            }));
-        });
-    });
-    $.get('/loadStaff', {}, function (data) {
-        let json = JSON.parse(data);
-        json.staff.forEach(function (item) {
-            $('.selectStaff').append($('<option>', {
-                value: item.staffId,
-                text: item.string
-            }));
-        });
-    });
-    $.get('/loadPat', {}, function (data) {
-        let json = JSON.parse(data);
-        json.patients.forEach(function (item) {
-            $('.selectPatient').append($('<option>', {
-                value: item.patientId,
-                text: item.string
-            }));
-        });
-    });
-    $.get('/loadDiag', {}, function (data) {
-        let json = JSON.parse(data);
-        json.diagnosis.forEach(function (item) {
-            $('.selectDiagnosis').append($('<option>', {
-                value: item.diagnosisId,
-                text: item.diagnosisName
-            }));
-        });
-    });
-}
-
 function loadExamRow(id, date, term, patient, doctor, diagnosis) {
     let row = document.createElement('tr');
     let examCont = $('#examinationContainer');
@@ -594,46 +592,123 @@ function loadExamRow(id, date, term, patient, doctor, diagnosis) {
     $(cloneRow).removeProp('hidden');
     let input = document.createElement('input');
     $(input).prop('class', 'examinationId').prop('type', 'hidden').prop('value', id);
+    let patientSelect = document.createElement('input');
+    let patientSelect_hidden = document.createElement('input');
+    $(patientSelect).prop('id', 'selectPatient').prop("readonly", 'readonly').prop('type', 'text');
+    $(patientSelect_hidden).prop('id', 'selectPatient_hidden').prop("readonly", 'readonly').prop('hidden', 'hidden');
+    $.get('/loadPat', {}, function (data) {
+        let json = JSON.parse(data);
+        let parsed = [];
+        json.patients.forEach(function (item) {
+            parsed.push({
+                key: item.patientId,
+                value: item.string
+            });
+        });
+        $(patientSelect).autocomplete({
+            minLength: 1,
+            source: parsed,
+            select: function (event, ui) {
+                $(patientSelect).val(ui.item.value);
+                $(patientSelect_hidden).val(ui.item.key);
+                return false;
+            },
 
-
-    let patientSelect = document.createElement('select');
-    let a = $(cloneRow).find('.selectPatient').get(0);
-    $(patientSelect).append($(a).children());
-    $(patientSelect).prop('class', 'selectPatient').prop("disabled",'disabled').prop('value', patient);
-
+        }).val(
+            function () {
+                for (let i = 0; i < parsed.length; ++i) {
+                    if (parsed[i].key === patient)
+                        return parsed[i].value
+                }
+            }
+        );
+    });
     let inputDate = document.createElement('input');
-
-    $(inputDate).prop('class', 'datePicker').prop("disabled",'disabled').prop('type', 'text').prop('value', date);
+    $(inputDate).prop('class', 'datePicker').prop("disabled", 'disabled').prop('type', 'text').prop('value', date);
     $(inputDate).datepicker({
         dateFormat: 'yy-mm-dd'
     });
 
-    let diagnosisSelect = document.createElement('select');
-    let b = $(cloneRow).find('.selectDiagnosis').get(0);
-    $(diagnosisSelect).append($(b).children());
-    $(diagnosisSelect).prop('class', 'selectDiagnosis').prop("disabled",'disabled').prop('value', diagnosis);
+    let diagnosisSelect = document.createElement('input');
+    let diagnosisSelect_hidden = document.createElement('input');
+    $(diagnosisSelect).prop('id', 'selectDiagnosis').prop("readonly", 'readonly').prop('type', 'text');
+    $(diagnosisSelect_hidden).prop('id', 'selectDiagnosis_hidden').prop("readonly", 'readonly').prop('hidden', 'hidden');
 
-    let staffSelect = document.createElement('select');
-    let c = $(cloneRow).find('.selectStaff').get(0);
-    $(staffSelect).append($(c).children());
-    $(staffSelect).prop('class', 'selectStaff').prop("disabled",'disabled').prop('value', doctor);
+    $.get('/loadDiag', {}, function (data) {
+        let json = JSON.parse(data);
+        let parsed = [];
+        json.diagnosis.forEach(function (item) {
+            parsed.push({
+                key: item.diagnosisId,
+                value: item.diagnosisName
+            });
+        });
+        $(diagnosisSelect).autocomplete({
+            minLength: 1,
+            source: parsed,
+            select: function (event, ui) {
+                $(diagnosisSelect).val(ui.item.value);
+                $(diagnosisSelect_hidden).val(ui.item.key);
+                return false;
+            },
+
+        }).val(
+            function () {
+                for (let i = 0; i < parsed.length; ++i) {
+                    if (parsed[i].key === diagnosis)
+                        return parsed[i].value
+                }
+            }
+        );
+    });
+    let staffSelect = document.createElement('input');
+    let staffSelect_hidden = document.createElement('input');
+    $(staffSelect).prop('id', 'selectStaff').prop("readonly", 'readonly').prop('type', 'text');
+    $(staffSelect_hidden).prop('id', 'staffSelect_hidden').prop("readonly", 'readonly').prop('hidden', 'hidden');
+    $.get('/loadStaff', {}, function (data) {
+        let json = JSON.parse(data);
+        let parsed = [];
+        json.staff.forEach(function (item) {
+            parsed.push({
+                key: item.staffId,
+                value: item.string
+            });
+        });
+        $(staffSelect).autocomplete({
+            minLength: 1,
+            source: parsed,
+            select: function (event, ui) {
+                $(staffSelect).val(ui.item.value);
+                $(staffSelect_hidden).val(ui.item.key);
+                return false;
+            },
+
+        }).val(
+            function () {
+                for (let i = 0; i < parsed.length; ++i) {
+                    if (parsed[i].key === doctor)
+                        return parsed[i].value
+                }
+            }
+        );
+    });
 
     let inputTerm = document.createElement('input');
-    $(inputTerm).prop('type', 'text').prop('value', term).prop('readonly','readonly').prop('class', 'inputTerm');
+    $(inputTerm).prop('type', 'text').prop('value', term).prop('readonly', 'readonly').prop('class', 'inputTerm');
 
     let inputEdit = document.createElement('input');
-    $(inputEdit).prop('class', 'editExam').prop('type', 'button');
+    $(inputEdit).prop('class', 'editExam editButton').prop('type', 'button');
     let inputSave = document.createElement('input');
-    $(inputSave).prop('class', 'saveExam').prop('type', 'hidden');
+    $(inputSave).prop('class', 'saveExam  saveButton').prop('type', 'hidden');
     let inputDelete = document.createElement('input');
-    $(inputDelete).prop('class', 'deleteExam').prop('type', 'button');
+    $(inputDelete).prop('class', 'deleteExam  deleteButton').prop('type', 'button');
 
     $(inputEdit).click(function () {
         let btn = event.target;
         let obj = btn.closest('tr');
-        $(obj).find('.selectPatient').removeProp('disabled');
-        $(obj).find('.selectDiagnosis').removeProp('disabled');
-        $(obj).find('.selectStaff').removeProp('disabled');
+        $(obj).find('#selectPatient').removeProp('readonly');
+        $(obj).find('#selectDiagnosis').removeProp('readonly');
+        $(obj).find('#selectStaff').removeProp('readonly');
         $(obj).find('.inputTerm').removeProp('readonly');
         $(obj).find('.datePicker').removeProp('disabled');
         $(obj).find('.saveExam').prop('type', 'button');
@@ -656,17 +731,17 @@ function loadExamRow(id, date, term, patient, doctor, diagnosis) {
         let btn = event.target;
         let obj = btn.closest('tr');
         let examinationId = $(obj).find('.examinationId').val();
-        let patientId = $(obj).find('.selectPatient').val();
-        let diagnosisId = $(obj).find('.selectDiagnosis').val();
-        let staffId = $(obj).find('.selectStaff').val();
+        let patientId = $(obj).find('#selectPatient_hidden').val();
+        let diagnosisId = $(obj).find('#selectDiagnosis').val();
+        let staffId = $(obj).find('#selectStaff').val();
         let term = $(obj).find('.inputTerm').val();
         let date = $(obj).find('.datePicker').val();
         if (patientId == null || diagnosisId == null || staffId == null || term.trim() === "") {
             alert("Error: invalid fields!");
         } else {
-            $(obj).find('.selectPatient').prop('disabled', 'disabled');
-            $(obj).find('.selectDiagnosis').prop('disabled', 'disabled');
-            $(obj).find('.selectStaff').prop('disabled', 'disabled');
+            $(obj).find('#selectPatient').prop('readonly', 'readonly');
+            $(obj).find('#selectDiagnosis').prop('readonly', 'readonly');
+            $(obj).find('#selectStaff').prop('readonly', 'readonly');
             $(obj).find('.inputTerm').prop('readonly', 'disabled');
             $(obj).find('.datePicker').prop('disabled', 'disabled');
             $(obj).find('.saveExam').prop('type', 'hidden');
@@ -691,23 +766,26 @@ function loadExamRow(id, date, term, patient, doctor, diagnosis) {
     row.appendChild(input);
     let td1 = document.createElement('td');
     td1.append(patientSelect);
+    td1.append(patientSelect_hidden);
     row.append(td1);
     let td2 = document.createElement('td');
     td2.append(inputDate);
     row.append(td2);
     let td3 = document.createElement('td');
     td3.append(diagnosisSelect);
+    td3.append(diagnosisSelect_hidden);
     row.append(td3);
     let td5 = document.createElement('td');
     td5.append(inputTerm);
     row.append(td5);
     let td6 = document.createElement('td');
     td6.append(staffSelect);
+    td6.append(staffSelect_hidden);
     row.append(td6);
     let td4 = document.createElement('td');
     td4.append(inputEdit, inputSave, inputDelete);
     row.append(td4);
-    $(row).prop('class','executed');
+    $(row).prop('class', 'executed');
     $(examCont).append(row);
 }
 
@@ -889,3 +967,15 @@ function deleteExam() {
         })
     }
 }
+
+function setActive(target) {
+    $('#exam').removeClass('active');
+    $('#pat').removeClass('active');
+    $('#diag').removeClass('active');
+    $('#spec').removeClass('active');
+    $('#staff_').removeClass('active');
+    let btn = target.target;
+    $(btn).addClass('active')
+}
+
+
