@@ -29,4 +29,11 @@ public class Examination implements Serializable {
     @ManyToOne
     @JoinColumn(name = "diagnosis")
     private Diagnosis diagnosis;
+
+    public String toJson() {
+        return "{\"examinationId\":\"" + examinationId + "\", \"examinationDate\":\"" + examinationDate +
+                "\",\"termOfTreatment\":\"" + termOfTreatment+
+                "\",\"patientId\":\"" + patient.getPatientId() + "\",\"diagnosis\":\"" +
+                diagnosis.getDiagnosisId() + "\", \"staffId\":\"" + staff.getStaffId() + "\"}";
+    }
 }

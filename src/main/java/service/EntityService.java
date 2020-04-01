@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashSet;
+import java.util.List;
 
 public interface EntityService<T> {
 
@@ -11,4 +12,5 @@ public interface EntityService<T> {
     void saveOrUpdate(T t);
 
     T findById(Integer id);
+
 }

@@ -1,0 +1,94 @@
+.editButton {
+    background-image: url(/comon/edit.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    border: none; /* assuming we don't want any borders */
+    cursor: pointer; /* make the cursor like hovering over an <a> element */
+    height: 16px; /* make this the size of your image */
+    padding-left: 16px; /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.deleteButton {
+    background-image: url(/comon/delete.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    border: none; /* assuming we don't want any borders */
+    cursor: pointer; /* make the cursor like hovering over an <a> element */
+    height: 16px; /* make this the size of your image */
+    padding-left: 16px; /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.saveButton {
+    background-image: url(/comon/save.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    border: none; /* assuming we don't want any borders */
+    cursor: pointer; /* make the cursor like hovering over an <a> element */
+    height: 16px; /* make this the size of your image */
+    padding-left: 16px; /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.addButton {
+    position: absolute;
+    right: 0;
+    bottom: -25px;
+    background-image: url(/comon/add.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    border: none; /* assuming we don't want any borders */
+    cursor: pointer; /* make the cursor like hovering over an <a> element */
+    height: 16px; /* make this the size of your image */
+    padding-left: 16px; /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+option {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+option:hover {
+    background-color: #1a01f1;
+    color: white;
+}
+
+input[type="text"] {
+    width: 85%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+/*For about page*/
+#addresses {
+    width: 20%;
+    height: 400px;
+    margin-left: auto;
+}
+
+#addresses a {
+    text-align: left;
+    padding: 8px 16px;
+    display: block;
+    text-decoration: none;
+    font-size: 17px;
+}

@@ -29,4 +29,10 @@ public class Patient implements Serializable {
     public String toString() {
         return patientFirstName + " " + patientLastName;
     }
+
+    public String toJson() {
+        return "{\"patientId\":\"" + patientId + "\", \"patientFirstName\":\"" + patientFirstName +
+                "\",\"patientLastName\":\"" + patientLastName+"\", \"string\":\"" + toString() + "\", \"patientDateOfBirth\":\"" +
+                patientDateOfBirth.toString() + "\"}";
+    }
 }

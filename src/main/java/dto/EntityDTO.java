@@ -10,24 +10,25 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Data
 public class EntityDTO<T> {
-    HashSet set = new HashSet<T>();
+    HashSet<T> set = new HashSet<>();
     private Class typeParameterClass;
-    public EntityDTO(Class typeParameterClass)
-    {
+
+    public EntityDTO(Class typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
     }
-    public HashSet findAll() {
+
+    public HashSet<?> findAll() {
+        set.clear();
         HibernateSessionFactoryUtil.doInHibernateSession(session -> {
             Query query = session.createQuery("from " + typeParameterClass.getCanonicalName());
             set.addAll(query.list());
         });
         return set;
     }
+
     public T findById(Integer id) {
         AtomicReference<T> res = new AtomicReference<>();
-        HibernateSessionFactoryUtil.doInHibernateSession(session -> {
-           res.set((T)session.get(typeParameterClass,id));
-        });
+        HibernateSessionFactoryUtil.doInHibernateSession(session -> res.set((T) session.get(typeParameterClass, id)));
         return res.get();
     }
 

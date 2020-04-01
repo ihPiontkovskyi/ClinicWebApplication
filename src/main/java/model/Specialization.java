@@ -23,4 +23,8 @@ public class Specialization implements Serializable {
     public String toString() {
         return specializationName;
     }
+
+    public String toJson(){
+        return "{\"specializationId\":\""+specializationId+"\", \"specializationName\":\""+specializationName+"\"}";
+    }
 }

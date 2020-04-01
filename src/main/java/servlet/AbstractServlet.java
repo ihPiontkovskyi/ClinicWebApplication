@@ -20,20 +20,22 @@ public class AbstractServlet extends HttpServlet {
     private EntityService<Patient> patientService;
     private EntityService<Staff> staffService;
     private EntityService<Specialization> specializationService;
+    private EntityService<Position> positionService;
     @Override
-    public void init() throws ServletException {
+    public void init() {
         diagnosisService = new DiagnosisServiceImpl();
         examinationService = new ExaminationServiceImpl();
         patientService = new PatientServiceImpl();
         staffService = new StaffServiceImpl();
         specializationService = new SpecializationServiceImpl();
+        positionService = new PositionServiceImpl();
     }
     protected void redirectToAction(String uri, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         response.sendRedirect(request.getContextPath() + uri);
     }
 
-    protected void forward(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    void forward(String page, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher(page).forward(request, response);
     }
 
