@@ -16,7 +16,6 @@ public class Diagnosis implements Serializable {
 
     private String diagnosisName;
 
-
     @OneToMany(mappedBy = "diagnosis", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Examination> examinations;
 
@@ -25,7 +24,7 @@ public class Diagnosis implements Serializable {
         return diagnosisName;
     }
 
-    public String toJson(){
-        return "{\"diagnosisId\":\""+diagnosisId+"\", \"diagnosisName\":\""+diagnosisName+"\"}";
+    public String toJson() {
+        return "{\"diagnosisId\":\"" + diagnosisId + "\", \"diagnosisName\":\"" + diagnosisName + "\"}";
     }
 }

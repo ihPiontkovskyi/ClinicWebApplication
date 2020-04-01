@@ -1,10 +1,8 @@
-package servlet.examinationServlet;
+package servlet.examination;
 
 import model.Examination;
-import model.Patient;
 import servlet.AbstractServlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +15,7 @@ public class ExaminationServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws IOException {
-        HashSet<Examination> set = getExaminationService().findAll();
+        HashSet<? extends Examination> set = getExaminationService().findAll();
         StringBuilder staffJson = new StringBuilder("{\"exams\":[  ");
         set.forEach(e1 -> staffJson.append(e1.toJson()).append(","));
         staffJson.deleteCharAt(staffJson.length() - 1);

@@ -29,6 +29,6 @@ public class Staff implements Serializable {
     }
 
     public String toJson() {
-        return "{\"staffId\":\"" + staffId + "\", \"fullName\":\"" + fullName+"\", \"string\":\"" + toString() + "\",\"specialization\":\"" + specialization.getSpecializationId() + "\"}";
+        return "{\"staffId\":\"" + staffId + "\", \"fullName\":\"" + fullName + "\", \"string\":\"" + toString() + "\",\"specialization\":\"" + specialization.getSpecializationId() + "\"}";
     }
 }

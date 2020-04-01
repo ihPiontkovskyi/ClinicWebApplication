@@ -7,26 +7,26 @@ import service.EntityService;
 import java.util.HashSet;
 
 public class SpecializationServiceImpl implements EntityService<Specialization> {
-    private EntityDTO<Specialization> specializationDTO = new EntityDTO<>(Specialization.class);
+    private static final EntityDTO<Specialization> SPECIALIZATION_DTO = new EntityDTO<>(Specialization.class);
 
     @Override
-    public HashSet findAll() {
-        return specializationDTO.findAll();
+    public HashSet<? extends Specialization> findAll() {
+        return SPECIALIZATION_DTO.findAll();
     }
 
     @Override
     public void delete(Specialization specialization) {
-        specializationDTO.delete(specialization);
+        SPECIALIZATION_DTO.delete(specialization);
     }
 
     @Override
     public void saveOrUpdate(Specialization specialization) {
-        specializationDTO.saveOrUpdate(specialization);
+        SPECIALIZATION_DTO.saveOrUpdate(specialization);
     }
 
     @Override
     public Specialization findById(Integer id) {
-        return specializationDTO.findById(id);
+        return SPECIALIZATION_DTO.findById(id);
     }
 
 }

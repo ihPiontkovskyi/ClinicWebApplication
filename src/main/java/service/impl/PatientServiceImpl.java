@@ -7,26 +7,26 @@ import service.EntityService;
 import java.util.HashSet;
 
 public class PatientServiceImpl implements EntityService<Patient> {
-    private EntityDTO<Patient> patientDTO = new EntityDTO<>(Patient.class);
+    private static final EntityDTO<Patient> PATIENT_DTO = new EntityDTO<>(Patient.class);
 
     @Override
-    public HashSet findAll() {
-        return patientDTO.findAll();
+    public HashSet<? extends Patient> findAll() {
+        return PATIENT_DTO.findAll();
     }
 
     @Override
     public void delete(Patient patient) {
-        patientDTO.delete(patient);
+        PATIENT_DTO.delete(patient);
     }
 
     @Override
     public void saveOrUpdate(Patient patient) {
-        patientDTO.saveOrUpdate(patient);
+        PATIENT_DTO.saveOrUpdate(patient);
     }
 
     @Override
     public Patient findById(Integer id) {
-        return patientDTO.findById(id);
+        return PATIENT_DTO.findById(id);
     }
 
 }

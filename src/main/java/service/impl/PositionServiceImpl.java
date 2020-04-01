@@ -7,25 +7,25 @@ import service.EntityService;
 import java.util.HashSet;
 
 public class PositionServiceImpl implements EntityService<Position> {
-    private EntityDTO<Position> positionDTO = new EntityDTO<>(Position.class);
+    private static final EntityDTO<Position> POSITION_DTO = new EntityDTO<>(Position.class);
 
     @Override
-    public HashSet findAll() {
-        return positionDTO.findAll();
+    public HashSet<? extends Position> findAll() {
+        return POSITION_DTO.findAll();
     }
 
     @Override
     public void delete(Position position) {
-        positionDTO.delete(position);
+        POSITION_DTO.delete(position);
     }
 
     @Override
     public void saveOrUpdate(Position position) {
-        positionDTO.saveOrUpdate(position);
+        POSITION_DTO.saveOrUpdate(position);
     }
 
     @Override
     public Position findById(Integer id) {
-        return positionDTO.findById(id);
+        return POSITION_DTO.findById(id);
     }
 }

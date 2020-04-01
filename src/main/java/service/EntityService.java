@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface EntityService<T> {
 
-    HashSet findAll();
+    HashSet<? extends T> findAll();
 
     void delete(T t);
 

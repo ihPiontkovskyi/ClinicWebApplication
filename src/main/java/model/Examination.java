@@ -32,7 +32,7 @@ public class Examination implements Serializable {
 
     public String toJson() {
         return "{\"examinationId\":\"" + examinationId + "\", \"examinationDate\":\"" + examinationDate +
-                "\",\"termOfTreatment\":\"" + termOfTreatment+
+                "\",\"termOfTreatment\":\"" + termOfTreatment +
                 "\",\"patientId\":\"" + patient.getPatientId() + "\",\"diagnosis\":\"" +
                 diagnosis.getDiagnosisId() + "\", \"staffId\":\"" + staff.getStaffId() + "\"}";
     }

@@ -1,10 +1,8 @@
-package servlet.patientServlet;
+package servlet.patient;
 
-import model.Diagnosis;
 import model.Patient;
 import servlet.AbstractServlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +15,7 @@ public class LoadServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws IOException {
-        HashSet<Patient> set = getPatientService().findAll();
+        HashSet<? extends Patient> set = getPatientService().findAll();
         StringBuilder staffJson = new StringBuilder("{\"patients\":[  ");
         set.forEach(e1 -> staffJson.append(e1.toJson()).append(","));
         staffJson.deleteCharAt(staffJson.length() - 1);

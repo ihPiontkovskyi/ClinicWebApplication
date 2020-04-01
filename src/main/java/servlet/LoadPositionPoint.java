@@ -2,7 +2,6 @@ package servlet;
 
 import model.Position;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,7 @@ public class LoadPositionPoint extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws IOException {
-        HashSet<Position> set = getPositionService().findAll();
+        HashSet<? extends Position> set = getPositionService().findAll();
         StringBuilder positionJson = new StringBuilder("{\"positionPoints\":[  ");
         set.forEach(e1 -> positionJson.append(e1.toJson()).append(","));
         positionJson.deleteCharAt(positionJson.length() - 1);

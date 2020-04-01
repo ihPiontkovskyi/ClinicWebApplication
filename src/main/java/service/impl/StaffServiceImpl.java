@@ -10,7 +10,7 @@ public class StaffServiceImpl implements EntityService<Staff> {
     private EntityDTO<Staff> staffDTO = new EntityDTO<>(Staff.class);
 
     @Override
-    public HashSet findAll() {
+    public HashSet<? extends Staff> findAll() {
         return staffDTO.findAll();
     }
 

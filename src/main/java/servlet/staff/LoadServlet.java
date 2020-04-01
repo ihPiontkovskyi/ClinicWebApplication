@@ -1,9 +1,8 @@
-package servlet.staffServlet;
+package servlet.staff;
 
 import model.Staff;
 import servlet.AbstractServlet;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ public class LoadServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws IOException {
-        HashSet<Staff> set = getStaffService().findAll();
+        HashSet<? extends Staff> set = getStaffService().findAll();
         StringBuilder staffJson = new StringBuilder("{\"staff\":[  ");
         set.forEach(e1 -> staffJson.append(e1.toJson()).append(","));
         staffJson.deleteCharAt(staffJson.length() - 1);

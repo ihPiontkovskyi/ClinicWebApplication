@@ -7,25 +7,25 @@ import service.EntityService;
 import java.util.HashSet;
 
 public class ExaminationServiceImpl implements EntityService<Examination> {
-    private EntityDTO<Examination> examinationDTO = new EntityDTO<>(Examination.class);
+    private static final EntityDTO<Examination> EXAMINATION_DTO = new EntityDTO<>(Examination.class);
 
     @Override
-    public HashSet findAll() {
-        return examinationDTO.findAll();
+    public HashSet<? extends Examination> findAll() {
+        return EXAMINATION_DTO.findAll();
     }
 
     @Override
     public void delete(Examination examination) {
-        examinationDTO.delete(examination);
+        EXAMINATION_DTO.delete(examination);
     }
 
     @Override
     public void saveOrUpdate(Examination examination) {
-        examinationDTO.saveOrUpdate(examination);
+        EXAMINATION_DTO.saveOrUpdate(examination);
     }
 
     @Override
     public Examination findById(Integer id) {
-        return examinationDTO.findById(id);
+        return EXAMINATION_DTO.findById(id);
     }
 }
